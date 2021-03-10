@@ -23,10 +23,11 @@
             try {
                 const result = await fetch(url, { method: "GET" })
                 const todos = await result.json();
+                console.log(todos);
                 todos.forEach(t => {
                     const li = document.createElement("li")
-                    li.textContent = t.marca;
-                    li.id = t.placa;
+                    li.textContent = t.name;
+                    li.id = t.ID;
 
                     to.appendChild(li);
                 })
