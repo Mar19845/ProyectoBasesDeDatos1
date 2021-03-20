@@ -33,7 +33,7 @@ app.listen(8080, () => console.log("Web server is listening.. on port 8080"))
 //funcion que hace un querie
 async function readTodos() {
   try {
-    const results = await pool.query("select * from prueba");
+    const results = await pool.query("select usuario,password from Usuario");
     return results.rows;
   }
   catch (e) {
