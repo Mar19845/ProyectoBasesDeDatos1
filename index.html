@@ -1,45 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <title>PROYECTO BASES DE DATOS</title>
+    </head>
+    <body>
+        <div id = "encabezado">
+            <img src="imagenes\logo.png"></img>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+        <div id = "cuerpo">
+                <div id="container">
+                    <img id="usuario" src="imagenes/usuario.png"></img>
+                    <label id = "label1" for="uname"><b>Username</b></label>
+                    <input id = "input1" type="text" placeholder="Enter Username" name="uname" required>
 
-<body>
-    <h1 class="titulo">Que es esto</h1>
-    <ol id='olTodo'>
+                    <label id = "label2" for="psw"><b>Password</b></label>
+                    <input id = "input2" type="password" placeholder="Enter Password" name="psw" required>
 
-    </ol>
-    <script>
-        const to = document.getElementById("olTodo");
-
-        const url = "http://localhost:8080/get";
-
-        readTodos();
-        async function readTodos() {
-            try {
-                const result = await fetch(url, { method: "GET" })
-                const todos = await result.json();
-                todos.forEach(t => {
-                    const li = document.createElement("li")
-                    li.textContent = t.name;
-                    li.id = t.ID;
-
-                    to.appendChild(li);
-                })
-                
-            }
-            catch (e) {
-                console.log("Error reading the todos.")
-            }
-
-
-        }
-    </script>
-
-</body>
-
+                    <button type="submit" id="btn">Login</button>
+                </div>
+        </div>
+        <div id = "footer">
+            <footer id="foot">
+                Universidad del Valle de Guatemala - Bases de Datos - Sección 20
+            </footer>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="index.js"></script>
+    </body>
 </html>

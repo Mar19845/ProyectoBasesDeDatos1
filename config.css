@@ -1,0 +1,49 @@
+body{
+    background-color: #000000;
+    background-image: linear-gradient(#000000 0%, #414141 74%);
+    height:735px;
+}
+
+#config{
+    color:white;
+    font-size: 45px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+}
+
+#img5{
+    width:50px;
+    height: 50px;
+    transform: rotate(-180deg);
+    background-color: gray;
+    opacity: 20%;
+}
+
+#sub{
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    padding:10px;
+}
+
+#sub button{
+    height: 100px;
+    width:100%;
+    font-size: 30px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #000000;
+    background-image: linear-gradient(0deg, #000000 0%, #434343 74%);
+    border:none;
+    border-radius:25px;
+}
+
+#sub button:hover{
+    background-color: #000000;
+    background-image: linear-gradient(#000000 0%, #7f8c8d 74%);
+}
+
+
