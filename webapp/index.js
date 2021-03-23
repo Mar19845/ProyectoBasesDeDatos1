@@ -11,15 +11,17 @@ async function Login(user, password) {
     result = await result.json();
     
     
-    //console.log(result);
-    //console.log(result.result[0].usuario);
-    CheckUser(user,result.result[0].usuario)
+    
+
+    //let user1 = result.result.usuario
+    console.log(result.result)
+
     if (result.result === true) {
         alert("Login correcto");
     }
-    //alert(result.usuario);
-    //if (!result.success) alert("FAILED! ")
-    
+    else if(result.result === false) {
+        alert(result.motivo);
+    }    
    
     
 
@@ -53,15 +55,6 @@ function LoginUser() {
         Login(user, password)
         document.getElementById("input2").value="";
         document.getElementById("input1").value="";
-    }
-}
-
-function CheckUser(user,user1){
-    if(user===user1){
-        alert("Ahuevoooooooooooo puto")
-    }
-    else{
-        alert("No se encuentra el usuarion en la base de datos")
     }
 }
 

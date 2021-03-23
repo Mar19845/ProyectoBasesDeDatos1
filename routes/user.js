@@ -27,21 +27,43 @@ router.post('/post/newuser', async function (req, res, next) {
 });
 
 //Handle POST request for User Login
-router.post('/login',async  function (req, res, next) {
+router.post('/login', async function (req, res, next) {
     let user = req.body.user;
     let password = req.body.password;
-    let resultado=false;
-    
-    await pool.query("select usuario,password from Usuario where usuario=$1", [user],
-    function(err, result){
-        if (err) throw err;
-        if (result){
-            res.send(JSON.stringify({
-                "result": result.rows
-            }))
-        }
+    let resultado = false;
+    let userdb;
+    let passDb;
 
-    });
+    await pool.query("select usuario,password from Usuario where usuario=$1", [user],
+        function (err, result) {
+            if (err) throw err;
+            if (result) {
+                /*
+                res.send(JSON.stringify({
+                    "result": result.rows[0]
+                }))*/
+                userdb = result.rows[0].usuario
+                passDb = result.rows[0].password
+
+                if (userdb === user && passDb === password) {
+                    res.send(JSON.stringify({
+                        "result": true,
+                        "user": user,
+                        "motivo": "",
+
+                    }))
+                }
+                else {
+                    res.send(JSON.stringify({
+                        "result": false,
+                        "user": null,
+                        "motivo": "Los datos no son iguales"
+
+                    }))
+                }
+            }
+
+        });
 });
 
 
