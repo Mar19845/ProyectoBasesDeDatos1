@@ -18,6 +18,7 @@ async function Login(user, password) {
 
     if (result.result === true) {
         alert("Login correcto");
+        window.open("repro.html","repro")
     }
     else if(result.result === false) {
         alert(result.motivo);
