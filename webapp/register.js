@@ -1,4 +1,5 @@
 //funcion asincrona para hacer un post en la base de datos
+//comentario nuevo
 async function register(user, password) {
 
     let result = await fetch("http://localhost:8080/post/newuser", {
