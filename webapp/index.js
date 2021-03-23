@@ -1,3 +1,5 @@
+const btn = document.getElementById("btn");
+
 async function Login(user, password) {
    
     let result =  await fetch("http://localhost:8080/login", {
@@ -18,15 +20,15 @@ async function Login(user, password) {
 
     if (result.result === true) {
         alert("Login correcto");
-        window.open("repro.html","repro")
+        window.open("repro.html","_self")
+        
+        
     }
     else if(result.result === false) {
         alert(result.motivo);
     }    
-   
-    
-
 }
+
 function LoginUser() {
     const password = document.getElementById("input2").value;
     const user = document.getElementById("input1").value
@@ -59,5 +61,5 @@ function LoginUser() {
     }
 }
 
-const btn = document.getElementById("btn");
+
 btn.addEventListener("click", LoginUser);

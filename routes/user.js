@@ -3,6 +3,7 @@ var router = express.Router();
 var bcrypt = require('bcrypt');
 var pool = require('../db/db');
 
+var superUsuario;
 //Handle POST request for User Registration
 router.post('/post/newuser', async function (req, res, next) {
 
@@ -27,7 +28,6 @@ router.post('/post/newuser', async function (req, res, next) {
 router.post('/login', async function (req, res, next) {
     let user = req.body.user;
     let password = req.body.password;
-    let resultado = false;
     let userdb;
     let passDb;
 
@@ -43,6 +43,9 @@ router.post('/login', async function (req, res, next) {
                 passDb = result.rows[0].password
 
                 if (userdb === user && passDb === password) {
+                    req.session.user=user;
+                    superUsuario=user;
+                    console.log(req.session.user)
                     res.send(JSON.stringify({
                         "result": true,
                         "user": user,
@@ -62,7 +65,6 @@ router.post('/login', async function (req, res, next) {
 
         });
 });
-
 
 
 module.exports = router;

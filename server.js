@@ -3,8 +3,17 @@ const bcrypt = require('bcrypt');
 const app = express();
 var pool = require('./db/db');
 var indexRouter = require('./routes/user');
+var musicRouter = require('./routes/music');
 //cors, permite que se puedan hacer get/post desde cualquier pagina
 var cors = require('cors')
+
+var session = require('express-session');
+app.use(session({
+  secret : 'ABCDefg',
+  resave : false,
+  saveUninitialized : false
+}));
+
 app.use(express.json(), cors())
 
 
@@ -13,7 +22,7 @@ app.get("/", (req, res) => res.sendFile(`${__dirname}/webapp/index.html`))
 
 
 app.use('/', indexRouter);
-
+app.use('/', musicRouter);
 
 
 //un entry point del servidor
