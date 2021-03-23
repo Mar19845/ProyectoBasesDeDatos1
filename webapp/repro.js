@@ -16,6 +16,7 @@ input.addEventListener("keyup", function (event) {
 
     readTodos();
     async function readTodos() {
+
       try {
         const result = await fetch(url, { method: "GET" })
         const todos = await result.json();
