@@ -58,7 +58,7 @@ function LoginUser() {
 
 function CheckUser(user,user1){
     if(user===user1){
-        alert("Ahuevoooooooooooo puto")
+        alert("Nuevo Usuario creado")
     }
     else{
         alert("No se encuentra el usuarion en la base de datos")

@@ -46,4 +46,26 @@ body{
     background-image: linear-gradient(#000000 0%, #7f8c8d 74%);
 }
 
+#sub1{
+    display: inline;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+}
+
+#sub1 button{
+    height: 100px;
+    width:33%;
+    font-size: 30px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #000000;
+    background-image: linear-gradient(0deg, #000000 0%, #434343 74%);
+    border:none;
+    border-radius:25px;
+}
+
+#sub1 button:hover{
+    background-color: #000000;
+    background-image: linear-gradient(#000000 0%, #7f8c8d 74%);
+}
 
