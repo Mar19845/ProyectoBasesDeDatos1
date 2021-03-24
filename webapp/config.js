@@ -16,8 +16,8 @@ btnCerrarPopup.addEventListener('click', function(e){
 });
 
 btnAbrirPopup2.addEventListener('click', function(){
-	overlay.classList.add('active');
-	popup.classList.add('active');
+	overlay3.classList.add('active');
+	popup3.classList.add('active');
 });
 
 
@@ -25,6 +25,7 @@ inactivar = document.getElementById("btnI");
 modificar = document.getElementById("btnM");
 eliminar = document.getElementById("btnE");
 overlay2 = document.getElementById("overlay2");
+overlay3 = document.getElementById("overlay3");
 
 inactivar.addEventListener('click', function(){
     overlay2.classList.add('active');
@@ -45,6 +46,18 @@ btnCerrarPopup.addEventListener('click', function(e){
 	e.preventDefault();
 	overlay2.classList.remove('active');
 	popup2.classList.remove('active');
+});
+
+btnCerrarPopup.addEventListener('click', function(e){
+	e.preventDefault();
+	overlay3.classList.remove('active');
+	popup3.classList.remove('active');
+});
+
+crearCancion = document.getElementById("Crear_C")
+crearCancion.addEventListener('click', function(){
+    overlay4.classList.add('active');
+	popup4.classList.add('active');
 });
 
 
