@@ -20,6 +20,7 @@ input.addEventListener("keyup", function (event) {
 
   }
 });
+var cancionRepro = 0
 Canciones();
 //funcion que consigue todas las canciones en la base de datos y las imprime
 async function Canciones() {
@@ -34,9 +35,8 @@ async function Canciones() {
       li.id = t.id;
 
       song.appendChild(li);
-      if (UserSub == true) {
+      if (UserSub === "true") {
         document.getElementById(t.id).addEventListener('click', e => {
-
           a.href = t.link_;
           a.target = "_blank";
           a.innerHTML = t.cancion;
@@ -46,8 +46,9 @@ async function Canciones() {
         })
       }
       console.log(UserSub)
-      if(UserSub==false){
-        if(cancionRepro<3){
+
+      if(UserSub==="false"){ 
+        if(cancionRepro < 4){
           document.getElementById(t.id).addEventListener('click', e => {
 
             a.href = t.link_;
@@ -56,14 +57,11 @@ async function Canciones() {
             barraRepro.appendChild(a);
             //barraRepro.innerHTML=t.link
             cancionRepro= cancionRepro+1
-  
           })
-        }else if(cancionRepro>3){
-          alert("NO eres usuario premium")
+        }else{
+          alert("NO ERES USUARIO PREMIUM, REGRESA MAS TARDE")
         }
-
-      }
-    
+      }  
     })
 
   }
@@ -150,7 +148,7 @@ async function searchArtista(nombre) {
     document.getElementById("rolas").appendChild(li1);
   })
 }
-let cancionRepro = 0
+
 let UserSub=false;
 //busca si esta subscriot el usuario
 //UserF()
