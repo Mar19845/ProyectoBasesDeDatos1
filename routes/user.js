@@ -200,6 +200,18 @@ router.post('/eliminar/cancion', async function (req, res, next) {
             }
 
         })
+
+    results = await pool.query("DELETE FROM canciones where cancion=$1", [Cancion],
+        function (err, result) {
+            if (err) throw err;
+            if(result){
+                res.send(JSON.stringify({
+                    "result": true
+                }));
+                console.log("Se ha eliminado la canción")
+            }
+
+        })
 })
 
 module.exports = router;

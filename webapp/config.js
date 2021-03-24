@@ -132,16 +132,22 @@ async function getAdmin(){
 const botonArtista =  document.getElementById("btnArtista");
 botonArtista.addEventListener("click",CrearArtista);
 
+const link = "";
 function CrearArtista(){
     const Artista =  document.getElementById("NombreArtista").value;
+    const Album = document.getElementById("AlbumArtista").value;
+    const Cancion = document.getElementById("CancionArtista").value;
+    const Link = document.getElementById("LinkCancion").value;
+
     getNewArtista(Artista)
     console.log("Esto es una asincore")
 }
+
 async function getNewArtista(Artista){
     let result =  await fetch("http://localhost:8080/artista/create", {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
-            "artista": Artista
+            "artista": Artista,
         })
         
     })
