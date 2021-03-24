@@ -141,3 +141,9 @@ body{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+
+  a{
+    padding: 20px;
+    height:fit-content;
+    font-size: 25px;
+  }

@@ -76,7 +76,6 @@ async function Subscribe(subscripcion) {
     //si la respuesta es true, es decir subscribio al usuario, devuelve un mensaje
     if (result.result === "true") {
         alert(result.mensaje);
-        
             
     }
     //si la respuesta es false, es decir le quito la subscripcion al usuario, devuelve un mensaje
@@ -131,14 +130,24 @@ async function getAdmin(){
 
 const botonArtista =  document.getElementById("btnArtista");
 
-boton.addEventListener("click",getNewArtista);
-async function getNewArtista(){
+boton.addEventListener("click",CrearArtista);
+function CrearArtista(){
     const Artista =  document.getElementById("NombreArtista").value;
-    let result =  await fetch("http://localhost:8080/", {
+    getNewArtista(Artista)
+    console.log("Esto es una asincore")
+}
+async function getNewArtista(Artista){
+    let result =  await fetch("http://localhost:8080/artista/create", {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
             "artista": Artista
         })
         
     })
+    result = await result.json();
+    if (result.result === true) {
+        alert("Felicidades, es un Artista");
+        
+            
+    }
 }

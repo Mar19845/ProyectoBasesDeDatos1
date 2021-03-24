@@ -99,7 +99,7 @@ router.post('/subcribirse', async function (req, res) {
 })
 // chequea que el usuario este subscrito
 router.get('/subcribirse/check', async function (req, res, next) {
-    results = await pool.query("select suscripcion from usuarios where usuario =$1",[superUsuario])
+    results = await pool.query("select suscripcion from usuarios where usuario =$1", [superUsuario])
     res.send(JSON.stringify(results.rows));
     console.log("Se ha enviado todo ")
 
@@ -107,17 +107,30 @@ router.get('/subcribirse/check', async function (req, res, next) {
 
 // chequea que el usuario sea admin
 router.get('/admin/check', async function (req, res, next) {
-    results = await pool.query("select administrador from usuarios where usuario =$1",[superUsuario])
+    results = await pool.query("select administrador from usuarios where usuario =$1", [superUsuario])
     res.send(JSON.stringify(results.rows));
     console.log("Se ha enviado todo ")
 
 })
 
 //funcion que crea un artista
-router.post('/admin/check', async function (req, res, next) {
-    results = await pool.query("select administrador from usuarios where usuario =$1",[superUsuario])
-    res.send(JSON.stringify(results.rows));
-    console.log("Se ha enviado todo ")
+router.post('/artista/create', async function (req, res, next) {
+    let NombreArtistico = req.body.artista;
+    let Album = req.body.Album;
+    let Cancion = req.body.cancion;
+
+    results = await pool.query("insert into artistas values ($1, $2);", [NombreArtistico, superUsuario],
+        function (err, result) {
+            if (err) throw err;
+            if(result){
+                res.send(JSON.stringify({
+                    "result": true
+                }));
+                console.log("Felicidades")
+            }
+
+        })
+    
 
 })
 
