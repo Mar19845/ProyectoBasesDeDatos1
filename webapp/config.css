@@ -457,6 +457,200 @@ body{
 .popup4.active h4 { animation: entradaSubtitulo .8s ease .5s forwards; }
 .popup4.active .contenedor-inputs { animation: entradaInputs 1s linear 1s forwards; }
 
+.overlay5 {
+	background: rgba(0,0,0,.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	visibility: hidden;
+}
+
+.overlay5.active {
+	visibility: visible;
+}
+
+.popup5 {
+	background-image: linear-gradient(#000000 0%, #414141 74%);
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px;
+	text-align: center;
+	width: 600px;
+	
+	transition: .3s ease all;
+	transform: scale(0.7);
+	opacity: 0;
+}
+
+.popup5 .btn-cerrar-popup {
+	font-size: 16px;
+	line-height: 16px;
+	display: block;
+	text-align: right;
+	transition: .3s ease all;
+	color: #BBBBBB;
+}
+
+.popup5 .btn-cerrar-popup:hover {
+	color: #000;
+}
+
+.popup5 h3 {
+	font-size: 36px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	opacity: 0;
+    color: white;
+}
+
+.popup5 h4 {
+	font-size: 26px;
+	font-weight: 300;
+	margin-bottom: 40px;
+	opacity: 0;
+    color:white;
+}
+
+.popup5 form .contenedor-inputs {
+	opacity: 0;
+}
+
+.popup5 form .contenedor-inputs input {
+	width: 100%;
+	margin-bottom: 20px;
+	height: 52px;
+	font-size: 18px;
+	line-height: 52px;
+	text-align: center;
+	border: 1px solid #BBBBBB;
+}
+
+.popup5 form .btn-submit {
+	padding: 0 20px;
+	height: 40px;
+	line-height: 40px;
+	border: none;
+	color: #fff;
+    background-image: linear-gradient(0deg, #000000 0%, #434343 74%);
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+}
+
+.popup5 form .btn-submit:hover {
+	background: rgba(94,125,227, .9);
+}
+
+.popup5.active {	transform: scale(1); opacity: 1; }
+.popup5.active h3 { animation: entradaTitulo .8s ease .5s forwards; }
+.popup5.active h4 { animation: entradaSubtitulo .8s ease .5s forwards; }
+.popup5.active .contenedor-inputs { animation: entradaInputs 1s linear 1s forwards; }
+
+.overlay6 {
+	background: rgba(0,0,0,.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	visibility: hidden;
+}
+
+.overlay6.active {
+	visibility: visible;
+}
+
+.popup6 {
+	background-image: linear-gradient(#000000 0%, #414141 74%);
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px;
+	text-align: center;
+	width: 600px;
+	
+	transition: .3s ease all;
+	transform: scale(0.7);
+	opacity: 0;
+}
+
+.popup6 .btn-cerrar-popup {
+	font-size: 16px;
+	line-height: 16px;
+	display: block;
+	text-align: right;
+	transition: .3s ease all;
+	color: #BBBBBB;
+}
+
+.popup6 .btn-cerrar-popup:hover {
+	color: #000;
+}
+
+.popup6 h3 {
+	font-size: 36px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	opacity: 0;
+    color: white;
+}
+
+.popup6 h4 {
+	font-size: 26px;
+	font-weight: 300;
+	margin-bottom: 40px;
+	opacity: 0;
+    color:white;
+}
+
+.popup6 form .contenedor-inputs {
+	opacity: 0;
+}
+
+.popup6 form .contenedor-inputs input {
+	width: 100%;
+	margin-bottom: 20px;
+	height: 52px;
+	font-size: 18px;
+	line-height: 52px;
+	text-align: center;
+	border: 1px solid #BBBBBB;
+}
+
+.popup6 form .btn-submit {
+	padding: 0 20px;
+	height: 40px;
+	line-height: 40px;
+	border: none;
+	color: #fff;
+    background-image: linear-gradient(0deg, #000000 0%, #434343 74%);
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+}
+
+.popup6 form .btn-submit:hover {
+	background: rgba(94,125,227, .9);
+}
+
+.popup6.active {	transform: scale(1); opacity: 1; }
+.popup6.active h3 { animation: entradaTitulo .8s ease .5s forwards; }
+.popup6.active h4 { animation: entradaSubtitulo .8s ease .5s forwards; }
+.popup6.active .contenedor-inputs { animation: entradaInputs 1s linear 1s forwards; }
+
 @keyframes entradaTitulo {
 	from {
 		opacity: 0;

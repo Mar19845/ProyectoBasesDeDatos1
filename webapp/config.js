@@ -33,13 +33,13 @@ inactivar.addEventListener('click', function(){
 });
 
 modificar.addEventListener('click', function(){
-    overlay2.classList.add('active');
-	popup2.classList.add('active');
+    overlay5.classList.add('active');
+	popup5.classList.add('active');
 });
 
 eliminar.addEventListener('click', function(){
-    overlay2.classList.add('active');
-	popup2.classList.add('active');
+    overlay6.classList.add('active');
+	popup6.classList.add('active');
 });
 
 btnCerrarPopup.addEventListener('click', function(e){
@@ -128,9 +128,10 @@ async function getAdmin(){
     }
 }
 
+//funcion que Crea un nuevo artista
 const botonArtista =  document.getElementById("btnArtista");
+botonArtista.addEventListener("click",CrearArtista);
 
-boton.addEventListener("click",CrearArtista);
 function CrearArtista(){
     const Artista =  document.getElementById("NombreArtista").value;
     getNewArtista(Artista)
@@ -146,8 +147,100 @@ async function getNewArtista(Artista){
     })
     result = await result.json();
     if (result.result === true) {
-        alert("Felicidades, es un Artista");
+        alert("Felicidades, es un Artista");        
+    }
+}
+
+//funcion crea un manager
+const botonManager =  document.getElementById("btnManager");
+botonManager.addEventListener("click",CrearManager);
+
+function CrearManager(){
+    const Manager =  document.getElementById("NombreManager").value;
+    getNewManager(Manager)
+    console.log("Esto es una asincore")
+}
+async function getNewManager(Manager){
+    let result =  await fetch("http://localhost:8080/manager/create", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+            "manager": Manager
+        })
         
-            
+    })
+    result = await result.json();
+    if (result.result === true) {
+        alert("Felicidades, es un Manager");        
+    }
+}
+
+//funcion inactivar cancion
+const botonInactivar =  document.getElementById("Inactivar");
+botonInactivar.addEventListener("click",InactivarCancion);
+
+function InactivarCancion(){
+    const Cancion =  document.getElementById("C_inactivar").value;
+    getNewSong(Cancion)
+    console.log("Esto es una asincore")
+}
+async function getNewSong(Cancion){
+    let result =  await fetch("http://localhost:8080/inactivar/cancion", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+            "cancion": Cancion
+        })
+        
+    })
+    result = await result.json();
+    if (result.result === true) {
+        alert("Se ha inactivado la cancion");        
+    }
+}
+
+//funcion modificar cancion
+const botonModificar =  document.getElementById("Modificar");
+botonModificar.addEventListener("click",ModificarCancion);
+
+function ModificarCancion(){
+    const Cancion =  document.getElementById("C_Modificar").value;
+    const Link = document.getElementById("L_Modificar").value;
+    getModiSong(Cancion, Link)
+    console.log("Esto es una asincore")
+}
+async function getModiSong(Cancion, Link){
+    let result =  await fetch("http://localhost:8080/modificar/cancion", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+            "cancion": Cancion,
+            "link":Link
+        })
+        
+    })
+    result = await result.json();
+    if (result.result === true) {
+        alert("Se ha modificado la cancion");        
+    }
+}
+
+//funcion eliminar cancion
+const botonEliminar =  document.getElementById("Eliminar");
+botonEliminar.addEventListener("click",EliminarCancion);
+
+function EliminarCancion(){
+    const Cancion =  document.getElementById("C_Eliminar").value;
+    getElimSong(Cancion)
+    console.log("Esto es una asincore")
+}
+async function getElimSong(Cancion){
+    let result =  await fetch("http://localhost:8080/eliminar/cancion", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+            "cancion": Cancion
+        })
+        
+    })
+    result = await result.json();
+    if (result.result === true) {
+        alert("Se ha eliminado la cancion");        
     }
 }

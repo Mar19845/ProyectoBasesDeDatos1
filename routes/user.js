@@ -118,8 +118,9 @@ router.post('/artista/create', async function (req, res, next) {
     let NombreArtistico = req.body.artista;
     let Album = req.body.Album;
     let Cancion = req.body.cancion;
+    let Link = req.body.link;
 
-    results = await pool.query("insert into artistas values ($1, $2);", [NombreArtistico, superUsuario],
+    results = await pool.query("INSERT INTO artistas VALUES ($1, $2);", [NombreArtistico, superUsuario],
         function (err, result) {
             if (err) throw err;
             if(result){
@@ -130,8 +131,77 @@ router.post('/artista/create', async function (req, res, next) {
             }
 
         })
-    
+})
 
+//funcion que crea un manager
+router.post('/manager/create', async function (req, res, next) {
+    let NombreArtista = req.body.manager;
+
+    results = await pool.query("INSERT INTO managers VALUES ($1, $2);", [superUsuario, NombreArtista],
+        function (err, result) {
+            if (err) throw err;
+            if(result){
+                res.send(JSON.stringify({
+                    "result": true
+                }));
+                console.log("Felicidades")
+            }
+
+        })
+})
+
+//funcion para inactivar cancion
+router.post('/inactivar/cancion', async function (req, res, next) {
+    let Cancion = req.body.cancion;
+
+    results = await pool.query("UPDATE canciones SET link = 'NULL' WHERE cancion = $1;", [Cancion],
+        function (err, result) {
+            if (err) throw err;
+            if(result){
+                res.send(JSON.stringify({
+                    "result": true
+                }));
+                console.log("Se ha inahbilitado la canción")
+            }
+
+        })
+})
+
+//funcion para Modificar cancion
+router.post('/modificar/cancion', async function (req, res, next) {
+    let Cancion = req.body.cancion;
+    let Link = req.body.link
+
+    results = await pool.query("UPDATE canciones SET link = $2 WHERE cancion = $1;", [Cancion, Link],
+        function (err, result) {
+            if (err) throw err;
+            if(result){
+                res.send(JSON.stringify({
+                    "result": true
+                }));
+                console.log("Se ha modificado la canción")
+            }
+
+        })
+})
+
+//funcion para Modificar cancion
+router.post('/eliminar/cancion', async function (req, res, next) {
+    let Cancion = req.body.cancion;
+
+    results = await pool.query("DELETE FROM canciones where cancion=$1", [Cancion],
+        function (err, result) {
+            if (err) throw err;
+            if(result){
+                res.send(JSON.stringify({
+                    "result": true
+                }));
+                console.log("Se ha eliminado la canción")
+            }
+
+        })
 })
 
 module.exports = router;
+
+/*"INSERT INTO canciones VALUES ($1, $2);", [Cancion, Link], "INSERT INTO albumes VALUES ($1, %2, %3)", [Album, NombreArtistico, "NULL"],*/

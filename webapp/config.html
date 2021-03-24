@@ -31,6 +31,7 @@
 						<input id="NombreArtista" type="text" placeholder="Nombre Artistico">
                         <input id="AlbumArtista" type="text" placeholder="Album">
                         <input id="CancionArtista" type="text" placeholder="Cancion">
+                        <input id="LinkCancion" type="text" placeholder = "Link">
 					</div>
 					<button id ="btnArtista" class="btn-submit" >Darse de alta</button>
 				</form>
@@ -59,7 +60,7 @@
 					<div class="contenedor-inputs">
 						<input id = "C_inactivar" type="text" placeholder="Nombre Canción">
 					</div>
-					<input type="submit" class="btn-submit" value="Alterar">
+					<input id= "Inactivar" type="submit" class="btn-submit" value="Alterar">
 				</form>
 			</div>
 		</div>
@@ -79,6 +80,33 @@
                         <input id = "Crear_album_genero" type="text" placeholder="Genero">
                         <input id = "Crear_album_artista" type="text" placeholder="Nombre artista">           
                     <input type="submit" class="btn-submit" value="Subir">
+				</form>
+			</div>
+		</div>
+
+        <div class="overlay5" id="overlay5">
+			<div class="popup5" id="popup5">
+				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+				<h3>Ingrese los Datos</h3>
+				<form action="">
+					<div class="contenedor-inputs">
+						<input id = "C_Modificar" type="text" placeholder="Nombre Canción">
+                        <input id = "L_Modificar" type="text" placeholder="Link Canción">
+					</div>
+					<input id = "Modificar" stype="submit" class="btn-submit" value="Alterar">
+				</form>
+			</div>
+		</div>
+
+        <div class="overlay6" id="overlay6">
+			<div class="popup6" id="popup6">
+				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+				<h3>Ingrese los Datos</h3>
+				<form action="">
+					<div class="contenedor-inputs">
+						<input id = "C_Eliminar" type="text" placeholder="Nombre Canción">
+					</div>
+					<input id="Eliminar" type="submit" class="btn-submit" value="Alterar">
 				</form>
 			</div>
 		</div>
