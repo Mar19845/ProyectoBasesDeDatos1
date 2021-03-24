@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 var pool = require('../db/db');
+
 //entry point para devolver todas las canciones en la base de datos
 router.get('/getSong', async function (req, res, next) {
     results = await pool.query("select cancion,album,artista,link_ from canciones");

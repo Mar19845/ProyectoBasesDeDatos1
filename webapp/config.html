@@ -10,14 +10,30 @@
     <body>
         <a href ="repro.html"><img id="img5" src="imagenes/flecha.png" ></a>
         <span id = "config">Configuración</span>
-        <span id = "sub" ><button >Suscribirse</button></span>
-        <span id = "sub" ><button >Ser Artista</button></span>
-        <span id = "sub" ><button >Ser Manager</button></span>
+        <span id = "sub" ><button id="subs">Suscribirse</button></span>
+        <span id = "sub" ><button id = "artista">Ser Artista</button></span>
+        <span id = "sub" ><button id = "manager">Ser Manager</button></span>
         
         
         <span id = "sub1" ><button disabled>Inactivar</button></span>
         <span id = "sub1" ><button disabled>Modificar</button></span>
         <span id = "sub1" ><button disabled>Eliminar</button></span>
+
+        <div class="overlay" id="overlay">
+			<div class="popup" id="popup">
+				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+				<h3>Ingrese los Datos</h3>
+				<h4>Y SE UN ARTISTA/MANAGER DESDE HOY!!!</h4>
+				<form action="">
+					<div class="contenedor-inputs">
+						<input type="text" placeholder="Nombre Artistico">
+                        <input type="text" placeholder="Album">
+                        <input type="text" placeholder="Cancion">
+					</div>
+					<input type="submit" class="btn-submit" value="Darse de alta">
+				</form>
+			</div>
+		</div>
 
     <script src="config.js"></script>
     </body>
