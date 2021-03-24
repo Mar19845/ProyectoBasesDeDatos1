@@ -50,4 +50,12 @@ router.post('/getArtista', async function (req, res) {
             }
         })
 })
+
+// chekea que el usuario este subscrito
+router.get('/subcribirse/check', async function (req, res, next) {
+    results = await pool.query("select suscripcion from usuarios where usuario =$1", [superUsuario])
+    res.send(JSON.stringify(results.rows));
+    console.log("Se ha enviado todo ")
+
+})
 module.exports = router;

@@ -34,20 +34,38 @@ async function Canciones() {
       li.id = t.id;
 
       song.appendChild(li);
+      if (UserSub == true) {
+        document.getElementById(t.id).addEventListener('click', e => {
 
-      //funcion que agrega el link a la barra de reproduccion y hacer un href a youtube
-      document.getElementById(t.id).addEventListener('click', e => {
-  
-        a.href=t.link_;
-        a.target="_blank";
-        a.innerHTML=t.cancion;
-        barraRepro.appendChild(a);
-        //barraRepro.innerHTML=t.link
-  
-      })
+          a.href = t.link_;
+          a.target = "_blank";
+          a.innerHTML = t.cancion;
+          barraRepro.appendChild(a);
+          //barraRepro.innerHTML=t.link
 
-    })
+        })
+      }
+      console.log(UserSub)
+      if(UserSub==false){
+        if(cancionRepro<3){
+          document.getElementById(t.id).addEventListener('click', e => {
+
+            a.href = t.link_;
+            a.target = "_blank";
+            a.innerHTML = t.cancion;
+            barraRepro.appendChild(a);
+            //barraRepro.innerHTML=t.link
+            cancionRepro= cancionRepro+1
+  
+          })
+        }else if(cancionRepro>3){
+          alert("NO eres usuario premium")
+        }
+
+      }
     
+    })
+
   }
   catch (e) {
     console.log("Error reading the todos.")
@@ -77,10 +95,10 @@ async function searchSong(cancion) {
     document.getElementById("rolas").appendChild(li1);
     //funcion que agrega el link a la barra de reproduccion y hacer un href a youtube
     document.getElementById(song.id).addEventListener('click', e => {
-  
-      a.href=song.link_;
-      a.target="_blank";
-      a.innerHTML=song.cancion;
+
+      a.href = song.link_;
+      a.target = "_blank";
+      a.innerHTML = song.cancion;
       barraRepro.appendChild(a);
       //barraRepro.innerHTML=t.link
 
@@ -132,5 +150,27 @@ async function searchArtista(nombre) {
     document.getElementById("rolas").appendChild(li1);
   })
 }
+let cancionRepro = 0
+let UserSub=false;
+//busca si esta subscriot el usuario
+//UserF()
+function UserF(){
+ GetSub() 
 
+}
+async function GetSub() {
+  const result = await fetch("http://localhost:8080/subcribirse/check", { method: "GET" });
+  const estado = await result.json();
+  const subUser = estado[0].suscripcion
+  if (subUser === true) {
+    UserSub = subUser
+    //alert("Se procedera a cancelar su Subscripcion")
+    Subscribe("false")
+  }
+  else if (subUser === false) {
+    alert("Se procedera a realizar su subscripcion")
+    UserSub = subUser
+    Subscribe("true")
+  }
+}
 let barraRepro = document.getElementById("barras");
