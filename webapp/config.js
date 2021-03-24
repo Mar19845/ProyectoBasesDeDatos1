@@ -64,3 +64,25 @@ function actSub(){
 }
 
 boton.addEventListener("click",actSub);
+
+
+ActivateAdmin()
+//funcion que activa botones del admin
+function ActivateAdmin(){
+    getAdmin()
+}
+async function getAdmin(){
+    const result = await fetch("http://localhost:8080/admin/check", { method: "GET" });
+    const estado = await result.json();
+    const adminUser=estado[0].administrador
+    if(adminUser===true){
+        document.getElementById("btnI").disabled = false;
+        document.getElementById("btnM").disabled = false;
+        document.getElementById("btnE").disabled = false;
+    }
+    else if(adminUser===false){
+        document.getElementById("btnI").disabled = true;
+        document.getElementById("btnM").disabled = true;
+        document.getElementById("btnE").disabled = true;
+    }
+}
