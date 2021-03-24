@@ -46,8 +46,8 @@ router.post('/login', async function (req, res, next) {
                 adminDb = result.rows[0].administrador
 
                 if (userdb === user && passDb === password) {
-                    req.session.user=user;
-                    superUsuario=user;
+                    req.session.user = user;
+                    superUsuario = user;
                     console.log(req.session.user)
                     res.send(JSON.stringify({
                         "result": true,
@@ -68,31 +68,41 @@ router.post('/login', async function (req, res, next) {
 
         });
 });
-
-router.post('/subscribe', async function (req, res) {
+// subscribe al ususario al servicio premuim
+router.post('/subcribirse', async function (req, res) {
     let subs = req.body.subscripcion;
 
-    console.log(user.post("/login"));
-    await pool.query("UPDATE usuario SET subscripcion='true' WHERE nombre == $1", [user.post("/login")],
+
+    await pool.query("UPDATE usuarios SET suscripcion=$1 WHERE usuario = $2", [subs, superUsuario],
         function (err, result) {
             if (err) throw err;
             if (result) {
-                res.setHeader("content-type", "application/json")
-                res.send(JSON.stringify(result.rows));
-                console.log("el query se envio con exito")
-            }
+                if (subs === "false") {
+                    res.setHeader("content-type", "application/json")
+                    res.send(JSON.stringify({
+                        "result": subs,
+                        "mensaje": "Se a cancelado su subscripcion al sistema"
+                    }));
+                    console.log("se cancelo la subscripcion del usuario " + superUsuario)
 
-            if (subs === "false") {
-                req.session.subscripcion = "true";
-                res.send(JSON.stringify({
-                    "result": true,
-                    "user": user,
-                    "motivo": "",
-
-                }))
+                }
+                else {
+                    res.setHeader("content-type", "application/json")
+                    res.send(JSON.stringify({
+                        "result": subs,
+                        "mensaje": "Se a subscrito al servico de musica premium"
+                    }));
+                    console.log("el query se envio con exito")
+                }
             }
         })
 })
+// chequea que el usuario este subscrito
+router.get('/subcribirse/check', async function (req, res, next) {
+    results = await pool.query("select suscripcion from usuarios where usuario =$1",[superUsuario])
+    res.send(JSON.stringify(results.rows));
+    console.log("Se ha enviado todo ")
 
+})
 
 module.exports = router;

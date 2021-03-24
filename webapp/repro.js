@@ -14,9 +14,9 @@ input.addEventListener("keyup", function (event) {
 
   if (event.keyCode === 13) {
     const cancion = document.getElementById("Asearch").value;
-    //searchSong(cancion)
+    searchSong(cancion)
     //searchAlbum(cancion)
-    searchArtista(cancion)
+    //searchArtista(cancion)
     
   }
 });
@@ -27,7 +27,7 @@ async function Canciones() {
   try {
     const result = await fetch(url, { method: "GET" })
     const canciones = await result.json();
-    console.log(typeof (canciones));
+    
     canciones.forEach(t => {
       const li = document.createElement("li")
       li.textContent = t.cancion +" "+ t.album;

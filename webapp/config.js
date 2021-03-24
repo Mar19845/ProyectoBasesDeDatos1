@@ -21,10 +21,10 @@ btnAbrirPopup2.addEventListener('click', function(){
 });
 
 const boton = document.getElementById("subs");
-
+// funcion que hace un post para subscribirse
 async function Subscribe(subscripcion) {
    
-    let result =  await fetch("http://localhost:8080/subscribe", {
+    let result =  await fetch("http://localhost:8080/subcribirse", {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
             "subscripcion": subscripcion
@@ -32,37 +32,35 @@ async function Subscribe(subscripcion) {
         
     })
     result = await result.json();
-
-    //let user1 = result.result.usuario
-    console.log(result.result)
-
-    if (result.result === true) {
-        alert("SUSCRITO");
+    //si la respuesta es true, es decir subscribio al usuario, devuelve un mensaje
+    if (result.result === "true") {
+        alert(result.mensaje);
+        
             
     }
-    else if(result.result === false) {
-        alert(result.motivo);
+    //si la respuesta es false, es decir le quito la subscripcion al usuario, devuelve un mensaje
+    else if(result.result === "false") {
+        alert(result.mensaje);
+        
     }    
 }
-
-function subcribirse(){
-    Subscribe(user, subscripcion);
-
+//funcion que consigue el estado de subscripcion del usuari0
+async function GetSub(){
+    const result = await fetch("http://localhost:8080/subcribirse/check", { method: "GET" });
+    const estado = await result.json();
+    const subUser=estado[0].suscripcion
+    if(subUser===true){
+        alert("Se procedera a cancelar su Subscripcion")
+        Subscribe("false")
+    }
+    else if(subUser===false){
+        alert("Se procedera a realizar su subscripcion")
+        Subscribe("true")
+    }
+}
+//funcion que llama la funcion anterior
+function actSub(){
+    GetSub()
 }
 
-
-/*if (adminDb === "false"){
-    const pagina = document.location("../config.html");
-    const boton = pagina.getElementById("sub1");
-    boton.disabled = false;
-}
-else {
-    res.send(JSON.stringify({
-        "result": false,
-        "user": null,
-        "motivo": "Los datos no son iguales"
-
-    }))
-}*/
-
-boton.addEventListener("click", subscribirse);
+boton.addEventListener("click",actSub);
