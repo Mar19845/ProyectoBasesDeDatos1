@@ -14,7 +14,7 @@ router.post('/post/newuser', async function (req, res, next) {
     // se usa bcrypt para hacer un hash de la contraseña del ususario
     var hashpassword = bcrypt.hashSync(req.body.password, 10);
 
-    await pool.query("insert into usuarios values($1,$2,$3,$4,$5)", [user, password, "false", "false", "false"],
+    await pool.query("insert into usuarios values($1,$2,$3,$4,$5,$6)", [user, password, 0,"false", "false", "false"],
         function (err, result) {
             if (err) throw err;
         })
@@ -32,8 +32,9 @@ router.post('/login', async function (req, res, next) {
     let userdb;
     let passDb;
     let adminDb;
+    let logins;
 
-    await pool.query("select usuario,password, administrador from usuarios where usuario=$1", [user],
+    await pool.query("select usuario,contrasenia, administrador,logins from usuarios where usuario=$1", [user],
         function (err, result) {
             if (err) throw err;
             if (result) {
@@ -42,8 +43,9 @@ router.post('/login', async function (req, res, next) {
                     "result": result.rows[0]
                 }))*/
                 userdb = result.rows[0].usuario
-                passDb = result.rows[0].password
+                passDb = result.rows[0].contrasenia
                 adminDb = result.rows[0].administrador
+                logins= result.rows[0].logins +1;
 
                 if (userdb === user && passDb === password) {
                     req.session.user = user;
@@ -55,6 +57,7 @@ router.post('/login', async function (req, res, next) {
                         "motivo": "",
 
                     }))
+                    pool.query("UPDATE usuarios SET logins=$1 WHERE usuario = $2", [logins, superUsuario])
                 }
                 else {
                     res.send(JSON.stringify({
@@ -112,10 +115,11 @@ router.get('/admin/check', async function (req, res, next) {
     console.log("Se ha enviado todo ")
 
 })
-
+let Artista;
 //funcion que crea un artista
 router.post('/artista/create', async function (req, res, next) {
     let NombreArtistico = req.body.artista;
+    Artista = req.body.artista;
     let Album = req.body.Album;
     let Cancion = req.body.cancion;
     let Link = req.body.link;
@@ -131,13 +135,16 @@ router.post('/artista/create', async function (req, res, next) {
             }
 
         })
+        
+        
+    
 })
 
 //funcion que crea un manager
 router.post('/manager/create', async function (req, res, next) {
     let NombreArtista = req.body.manager;
 
-    results = await pool.query("INSERT INTO managers VALUES ($1, $2);", [superUsuario, NombreArtista],
+    results = await pool.query("INSERT INTO managers VALUES ($1, $2);", [superUsuario,NombreArtista],
         function (err, result) {
             if (err) throw err;
             if(result){
@@ -212,6 +219,49 @@ router.post('/eliminar/cancion', async function (req, res, next) {
             }
 
         })
+})
+
+// sube la cancion
+router.post('/artista/subir', async function (req, res, next) {
+    const NombreC = req.body.cancion;
+    const linkC = req.body.link;
+    const NombreA = req.body.album
+    const Genero = req.body.genero
+    const Date = '2021-03-24'
+    /*
+    PArtista = await pool.query("select nombre from artistas where username=$1 limit 1",[superUsuario],
+    function(err,result){
+        if(result){
+            console.log(PArtista.rows[0].nombre)
+            console.log("Funciona¡¡¡¡")
+            Artista=PArtista.rows[0].nombre
+        }
+    })
+    */
+    results = await pool.query("insert into canciones(cancion,link_) values ($1, $2)", [NombreC,linkC],
+    function(err,result){
+        if (err) throw err;
+        if(result){
+            res.send(JSON.stringify({
+                "result": true
+            }));
+            console.log("Funciona 22222222")
+        }
+    })
+    /*
+    results2 = await pool.query("insert into albumes values ($1, $2, $3,$4)",[NombreA,Artista,Genero,Date],
+    function(err, results) {
+        if (err) throw err;
+        if(result){
+            res.send(JSON.stringify({
+                "result": true
+            }));
+            console.log("1111111111111111111111")
+        }
+    })
+    */
+    console.log("Se ha enviado todo ")
+
 })
 
 module.exports = router;

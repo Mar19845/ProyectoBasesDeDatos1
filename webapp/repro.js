@@ -38,13 +38,14 @@ async function Canciones() {
       //funcion que agrega el link a la barra de reproduccion y hacer un href a youtube
       document.getElementById(t.id).addEventListener('click', e => {
   
-        a.href=t.link;
+        a.href=t.link_;
         a.target="_blank";
         a.innerHTML=t.cancion;
         barraRepro.appendChild(a);
         //barraRepro.innerHTML=t.link
   
       })
+
     })
     
   }
@@ -74,6 +75,16 @@ async function searchSong(cancion) {
     li1.id = song.id;
     li1.textContent = song.cancion;
     document.getElementById("rolas").appendChild(li1);
+    //funcion que agrega el link a la barra de reproduccion y hacer un href a youtube
+    document.getElementById(song.id).addEventListener('click', e => {
+  
+      a.href=song.link_;
+      a.target="_blank";
+      a.innerHTML=song.cancion;
+      barraRepro.appendChild(a);
+      //barraRepro.innerHTML=t.link
+
+    })
   })
 }
 //query para buscar un album especifico

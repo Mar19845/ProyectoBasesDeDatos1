@@ -84,6 +84,7 @@ async function Subscribe(subscripcion) {
         
     }    
 }
+let contador = 0;
 //funcion que consigue el estado de subscripcion del usuari0
 async function GetSub(){
     const result = await fetch("http://localhost:8080/subcribirse/check", { method: "GET" });
@@ -95,6 +96,7 @@ async function GetSub(){
     }
     else if(subUser===false){
         alert("Se procedera a realizar su subscripcion")
+        contador = contador +1;
         Subscribe("true")
     }
 }
@@ -106,7 +108,7 @@ function actSub(){
 boton.addEventListener("click",actSub);
 
 
-ActivateAdmin()
+//ActivateAdmin()
 //funcion que activa botones del admin
 function ActivateAdmin(){
     getAdmin()
@@ -127,27 +129,48 @@ async function getAdmin(){
         document.getElementById("btnE").disabled = true;
     }
 }
+document.getElementById("SubirRola").addEventListener("click",SubirRola)
+function SubirRola(){
+    //const NameAlbum =  document.getElementById("Crear_album").value;
+    //const AlbumGenero = document.getElementById("Crear_album_genero").value;
+    const NombreCancion = document.getElementById("Crear_cancion").value;
+    const LinkCancion = document.getElementById("Crear_cancion_link").value;
+    SubirCancion(NombreCancion,LinkCancion)
+}
+async function SubirCancion(NCancion, Link){
+    let result =  await fetch("http://localhost:8080/artista/subir", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+            "cancion": NCancion,
+            "link": Link
+        })
+        
+    })
+}
 
 //funcion que Crea un nuevo artista
 const botonArtista =  document.getElementById("btnArtista");
 botonArtista.addEventListener("click",CrearArtista);
 
-const link = "";
+//const link ;
 function CrearArtista(){
     const Artista =  document.getElementById("NombreArtista").value;
     const Album = document.getElementById("AlbumArtista").value;
     const Cancion = document.getElementById("CancionArtista").value;
     const Link = document.getElementById("LinkCancion").value;
-
-    getNewArtista(Artista)
-    console.log("Esto es una asincore")
+    link=Link;
+    getNewArtista(Artista,Album,Cancion,Link)
+    
 }
-
-async function getNewArtista(Artista){
+//console.log(link)
+async function getNewArtista(Artista,Album,Cancion,Link){
     let result =  await fetch("http://localhost:8080/artista/create", {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({
             "artista": Artista,
+            "album": Album,
+            "cancion": Cancion,
+            "link": Link
         })
         
     })
