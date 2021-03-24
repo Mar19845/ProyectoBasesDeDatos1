@@ -20,6 +20,34 @@ btnAbrirPopup2.addEventListener('click', function(){
 	popup.classList.add('active');
 });
 
+
+inactivar = document.getElementById("btnI");
+modificar = document.getElementById("btnM");
+eliminar = document.getElementById("btnE");
+overlay2 = document.getElementById("overlay2");
+
+inactivar.addEventListener('click', function(){
+    overlay2.classList.add('active');
+	popup2.classList.add('active');
+});
+
+modificar.addEventListener('click', function(){
+    overlay2.classList.add('active');
+	popup2.classList.add('active');
+});
+
+eliminar.addEventListener('click', function(){
+    overlay2.classList.add('active');
+	popup2.classList.add('active');
+});
+
+btnCerrarPopup.addEventListener('click', function(e){
+	e.preventDefault();
+	overlay2.classList.remove('active');
+	popup2.classList.remove('active');
+});
+
+
 const boton = document.getElementById("subs");
 // funcion que hace un post para subscribirse
 async function Subscribe(subscripcion) {
