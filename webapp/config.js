@@ -99,6 +99,7 @@ ActivateAdmin()
 function ActivateAdmin(){
     getAdmin()
 }
+//funcion que verifica si un usuario es admin o no
 async function getAdmin(){
     const result = await fetch("http://localhost:8080/admin/check", { method: "GET" });
     const estado = await result.json();
@@ -113,4 +114,18 @@ async function getAdmin(){
         document.getElementById("btnM").disabled = true;
         document.getElementById("btnE").disabled = true;
     }
+}
+
+const botonArtista =  document.getElementById("btnArtista");
+
+boton.addEventListener("click",getNewArtista);
+async function getNewArtista(){
+    const Artista =  document.getElementById("NombreArtista").value;
+    let result =  await fetch("http://localhost:8080/", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+            "artista": Artista
+        })
+        
+    })
 }

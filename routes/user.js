@@ -113,4 +113,12 @@ router.get('/admin/check', async function (req, res, next) {
 
 })
 
+//funcion que crea un artista
+router.post('/admin/check', async function (req, res, next) {
+    results = await pool.query("select administrador from usuarios where usuario =$1",[superUsuario])
+    res.send(JSON.stringify(results.rows));
+    console.log("Se ha enviado todo ")
+
+})
+
 module.exports = router;
