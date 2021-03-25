@@ -4,7 +4,15 @@ const b = document.getElementById("b")
 const c = document.getElementById("c")
 const d = document.getElementById("d")
 const e = document.getElementById("e")
+<<<<<<< Updated upstream
 //reporteA()
+=======
+<<<<<<< HEAD
+reporteA()
+=======
+//reporteA()
+>>>>>>> ac2cc9d4e989cabd4f01a629b056663d90fec921
+>>>>>>> Stashed changes
 async function reporteA() {
     try {
         const result = await fetch("http://localhost:8080/obtener/reporteA", { method: "GET" })
@@ -79,4 +87,12 @@ async function reporteE() {
     catch (e) {
         console.log("Error reading the todos.")
     }
+<<<<<<< Updated upstream
 }
+=======
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> ac2cc9d4e989cabd4f01a629b056663d90fec921
+>>>>>>> Stashed changes

@@ -57,7 +57,7 @@ async function Canciones() {
             barraRepro.appendChild(a);
             //barraRepro.innerHTML=t.link
             cancionRepro= cancionRepro+1
-          })
+          })  
         }else{
           alert("NO ERES USUARIO PREMIUM, REGRESA MAS TARDE")
         }
