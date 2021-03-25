@@ -266,4 +266,28 @@ router.post('/artista/subir', async function (req, res, next) {
 
 module.exports = router;
 
-/*"INSERT INTO canciones VALUES ($1, $2);", [Cancion, Link], "INSERT INTO albumes VALUES ($1, %2, %3)", [Album, NombreArtistico, "NULL"],*/
+router.get('/obtener/reporteB', async function (req, res, next) {
+    results = await pool.query("SELECT al.artista, count(r) FROM album_canciones ac INNER JOIN canciones c1 on ac.nombre_cancion = c1.id INNER JOIN albumes al on ac.id_album = al.nombre INNER JOIN reproduccion r on r.id_cancion = c1.id WHERE r.fecha > (SELECT CAST(NOW() AS DATE) - 90) GROUP BY al.artista ORDER BY count(r) desc;")
+    res.send(JSON.stringify(results.rows));
+    console.log("Se ha enviado todo ")
+
+})
+
+router.get('/obtener/reporteA', async function (req, res, next) {
+    results = await pool.query("SELECT a.nombre from albumes a WHERE a.fecha > (SELECT CAST(NOW() AS DATE) - 7);")
+    res.send(JSON.stringify(results.rows));
+    console.log("Se ha enviado todo ")
+
+})
+router.get('/obtener/reporteD', async function (req, res, next) {
+    results = await pool.query("SELECT ar.nombre, count(r) FROM artistas ar INNER JOIN albumes al on ar.nombre = al.artista INNER JOIN canciones c1 on c1.cancion = c1.cancion INNER JOIN reproduccion r on r.id_cancion = c1.id GROUP BY ar.nombre ORDER BY count(r) desc;")
+    res.send(JSON.stringify(results.rows));
+    console.log("Se ha enviado todo ")
+
+})
+router.get('/obtener/reporteE', async function (req, res, next) {
+    results = await pool.query("SELECT usuario, logins FROM usuarios ORDER BY logins DESC LIMIT 5;")
+    res.send(JSON.stringify(results.rows));
+    console.log("Se ha enviado todo ")
+
+})

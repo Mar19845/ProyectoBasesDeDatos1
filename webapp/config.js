@@ -273,3 +273,9 @@ async function getElimSong(Cancion){
         alert("Se ha eliminado la cancion");        
     }
 }
+
+const btnReporte = document.getElementById("Crear_Repor")
+function NewPage(){
+    window.open("reporte.html","_self")
+}
+btnReporte.addEventListener("click",NewPage)
