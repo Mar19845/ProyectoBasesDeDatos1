@@ -37,16 +37,16 @@ def Checkadmin(user):
     if (str(consulta[0]) == "(False,)"):
         return "Not_Admin"
         
-def Admin_1():
+def Admin_1(user):
     print("Soy un admin tipo 1")
     
-def Admin_2():
+def Admin_2(user):
     print("Soy un admin tipo 2")
     
-def Admin_3():
+def Admin_3(user):
     print("Soy un admin tipo 3")
     
-def Admin():
+def Admin(user):
     op_settings = 0
     while(op_settings != 10):
             print("--------------CONFIGURACIÓN--------------")
@@ -88,7 +88,7 @@ def Admin():
             elif (op_settings == 10):
                 pass  
     
-def User_Normal():
+def User_Normal(user):
     op_settings = 0
     while(op_settings != 4):
             print("--------------CONFIGURACIÓN--------------")

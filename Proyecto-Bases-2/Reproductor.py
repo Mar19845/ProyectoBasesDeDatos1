@@ -20,15 +20,15 @@ def Funcion_Settings(user):
     op_settings = 0
     tipo_admin = ad.Checkadmin(user)
     if(tipo_admin == 1):
-        ad.Admin_1()
+        ad.Admin_1(user)
     if(tipo_admin == 2):
-        ad.Admin_2()
+        ad.Admin_2(user)
     if(tipo_admin == 3):
-        ad.Admin_3()
+        ad.Admin_3(user)
     if(tipo_admin == 0):
-        ad.Admin()
+        ad.Admin(user)
     if(tipo_admin == "Not_Admin"):
-        ad.User_Normal()
+        ad.User_Normal(user)
         
     
     
