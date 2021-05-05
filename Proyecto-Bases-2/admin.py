@@ -10,7 +10,6 @@ database = result.path[1:]
 hostname = result.hostname
 port = result.port
 
-
 #creamos una conexion a la base de datos
 conexion = pg.connect(host=hostname, database=database, user=username, password=password)
 # Creamos el cursor con el objeto conexion
@@ -63,28 +62,75 @@ def Admin(user):
             op_settings = int(input("Ingrese opción a realizar\t"))
             
             if (op_settings == 1):
-                print("Consulta")
+                cur.execute("UPDATE usuario SET suscripcion='true' WHERE usuario = '%s';" % (user))
+                conexion.commit()
                 
             elif (op_settings == 2):
-                print("Consulta")
+                nom = input("Ingrese nombre artistico: ")
+                cur.execute("INSERT INTO artistas values ('%s', '%s');" % (nom, user))
+                conexion.commit()
                 
             elif (op_settings == 3):
-                print("Consulta")
+                nom = input("Ingrese nombre de Manager: ")
+                nom2 = input("De que artista sera Manager? ")
+                cur.execute("INSERT INTO managers values ('%s', '%s');" % (nom, nom2))
+                conexion.commit()
                 
             elif (op_settings == 4):
-                print("Consulta")
+                print("1. Inactivar Usuario")
+                print("2. Inactivar Album")
+                print("3. Inactivar Cancion")
+                
+                ina = int(input("Qué desea inactivar? \t"))
+                
+                if (ina == 1):
+                    usu = input("Que usuario desea desactivar? \t")
+                    cur.execute("UPDATE usuario SET activado='false' WHERE usuario = '%s';" % (usu))
+                    conexion.commit()
+                    
+                elif (ina == 2):
+                    alb = input("Que album desea desactivar? \t")
+                    cur.execute("UPDATE albumes SET activo='false' WHERE nombre = '%s';" % (alb))
+                    conexion.commit()
+                    
+                elif (ina == 3):
+                    can = input("Que cancion desea desactivar? \t")
+                    cur.execute("UPDATE canciones SET activa='false' WHERE cancion = '%s';" % (can))
+                    conexion.commit()
                 
             elif (op_settings == 5):
-                print("Consulta")
+                print("1. Modificar cancion")
+                print("2. Modificar album")
+                
+                mod = int(input("Qué desea modificar? \t"))
+                
+                if (mod == 1):
+                    can = input("Que cancion desea modificar? \t")
+                    nom = input("Nombre de la cancion: \t")
+                    link = input("Adjunte link de la canción: \t")
+                    artista = input("Ingrese artista principal: \t")
+                    act = input("Indique el estado de la canción(activada, desactivada): \t")
+                    
+                    cur.execute("UPDATE canciones SET cancion = '%s', link = '%s', artista = '%s', activa = '%s' WHERE cancion = '%s';" % (nom, link, artista, act, can))
+                    conexion.commit()
+                    
+                elif (ina == 2):
+                    alb = input("Que album desea modificarr? \t")
+                    cur.execute("UPDATE albumes SET activo='false' WHERE nombre = '%s';" % (alb))
+                    conexion.commit()
                 
             elif (op_settings == 6):
-                print("Consulta")  
+                print("Consulta")
+                
             elif (op_settings == 7):
                 print("Consulta")
+                
             elif (op_settings == 8):
                 print("Consulta")
+                
             elif (op_settings == 9):
                 print("Consulta")
+                
             elif (op_settings == 10):
                 pass  
     

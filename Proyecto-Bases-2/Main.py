@@ -27,11 +27,6 @@ from urllib.parse import urlparse
 ## Creamos el cursor con el objeto conexion
 #cur = conexion.cursor()
 
-
-
-
-
-
 kill = False
 while kill != True:
     print("Bienvenido a tu servicio de musica\n")

@@ -37,7 +37,7 @@ def Funcion_Reproductor(user):
     consulta=[1,2,3]
     cont = 0
     while(op_repro != len(consulta)+3):
-        cur.execute("SELECT cancion FROM canciones")
+        cur.execute("SELECT cancion FROM canciones WHERE activa = 'true' ")
         consulta = cur.fetchall()
         print("---------------REPRODUCTOR---------------")
         for cancion in consulta:
