@@ -13,19 +13,19 @@ import login as log
 import Reproductor as rp
 from urllib.parse import urlparse
 
-result = urlparse("postgres://mboqptna:ywBdzyA5jXnJ1Wxyq1MpxqB1h2kU8_ii@queenie.db.elephantsql.com:5432/mboqptna")
-# also in python 3+ use: urlparse("YourUrl") not urlparse.urlparse("YourUrl") 
-username = result.username
-password = result.password
-database = result.path[1:]
-hostname = result.hostname
-port = result.port
-
-
-#creamos una conexion a la base de datos
-conexion = pg.connect(host=hostname, database=database, user=username, password=password)
-# Creamos el cursor con el objeto conexion
-cur = conexion.cursor()
+#result = urlparse("postgres://mboqptna:ywBdzyA5jXnJ1Wxyq1MpxqB1h2kU8_ii@queenie.db.elephantsql.com:5432/mboqptna")
+## also in python 3+ use: urlparse("YourUrl") not urlparse.urlparse("YourUrl") 
+#username = result.username
+#password = result.password
+#database = result.path[1:]
+#hostname = result.hostname
+#port = result.port
+#
+#
+##creamos una conexion a la base de datos
+#conexion = pg.connect(host=hostname, database=database, user=username, password=password)
+## Creamos el cursor con el objeto conexion
+#cur = conexion.cursor()
 
 
 
@@ -59,4 +59,4 @@ while kill != True:
     if opcion == "3":
         kill = True
         
-conexion.close()
+#conexion.close()

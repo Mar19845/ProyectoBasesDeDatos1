@@ -16,13 +16,13 @@ conexion = pg.connect(host=hostname, database=database, user=username, password=
 cur = conexion.cursor()
 
 def login(user,contra):
-    cur.execute("select usuario from usuarios where usuario = '%s' " % (user))
+    cur.execute("select usuario from usuario where usuario = '%s' " % (user))
     checkUser = cur.fetchall()
     if  checkUser == []:
         print("El usuario: %s no existe\n" %(user))
         return False
     else:
-        cur.execute("select usuario from usuarios where usuario = '%s' and contrasenia = '%s' " % (user,contra))
+        cur.execute("select usuario from usuario where usuario = '%s' and contrasenia = '%s' " % (user,contra))
         checkPass = cur.fetchall()
         if checkPass == []:
             print("Contraseña incorrecta usuario: %s \n" %(user))
@@ -34,10 +34,12 @@ def login(user,contra):
 
 def create(user,contra):
     #cur.execute("insert into usuarios values('%s','%s','%s','%s','%s','%s')" %(user, contra, 0,"false", "false", "false"))
-    checkInsert = cur.execute("insert into usuarios values('%s','%s','%s','%s','%s','%s')" %(user, contra, 0,"false", "false", "false"))
+    checkInsert = cur.execute("insert into usuario values('%s','%s','%s','%s','%s','%s','%s')" %(user, contra, 0,"false", "false",4,"false"))
     conexion.commit()
     if checkInsert != []:
         print("Bienvenido: %s\n" %(user))
     else:
         print("Hubo un error intente de nuevo")
     #conexion.close()
+
+

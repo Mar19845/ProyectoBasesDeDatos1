@@ -1,6 +1,8 @@
 import psycopg2 as pg
 from urllib.parse import urlparse
 
+import admin as ad
+
 result = urlparse("postgres://mboqptna:ywBdzyA5jXnJ1Wxyq1MpxqB1h2kU8_ii@queenie.db.elephantsql.com:5432/mboqptna")
 # also in python 3+ use: urlparse("YourUrl") not urlparse.urlparse("YourUrl") 
 username = result.username
@@ -16,74 +18,25 @@ cur = conexion.cursor()
 
 def Funcion_Settings(user):
     op_settings = 0
-    consulta = [1, 2, 3]
-    cur.execute("SELECT administrador FROM usuarios WHERE usuario = '%s';" %(user))
-    consulta = cur.fetchall()
+    tipo_admin = ad.Checkadmin(user)
+    if(tipo_admin == 1):
+        ad.Admin_1()
+    if(tipo_admin == 2):
+        ad.Admin_2()
+    if(tipo_admin == 3):
+        ad.Admin_3()
+    if(tipo_admin == 0):
+        ad.Admin()
+    if(tipo_admin == "Not_Admin"):
+        ad.User_Normal()
+        
     
-    if (str(consulta[0]) == "(True,)"):
-        while(op_settings != 9):
-            print("--------------CONFIGURACIÓN--------------")
-            print("1. Suscribirse\n")
-            print("2. Ser Artista\n")
-            print("3. Ser Manager\n")
-            print("4. Inactivar\n")
-            print("5. Modificar\n")
-            print("6. Eliminar\n")
-            print("7. Subir Canción\n")
-            print("8. Reproductor")
-            op_settings = int(input("Ingrese opción a realizar\t"))
-            
-            if (op_settings == 1):
-                print("Consulta")
-                
-            elif (op_settings == 2):
-                print("Consulta")
-                
-            elif (op_settings == 3):
-                print("Consulta")
-                
-            elif (op_settings == 4):
-                print("Consulta")
-                
-            elif (op_settings == 5):
-                print("Consulta")
-                
-            elif (op_settings == 6):
-                print("Consulta")
-                
-            elif (op_settings == 7):
-                print("Consulta")
-                
-            elif (op_settings == 8):
-                Funcion_Reproductor()        
-    if (str(consulta[0]) == "(False,)"):
-        while(op_settings != 5):
-            print("--------------CONFIGURACIÓN--------------")
-            print("1. Suscribirse\n")
-            print("2. Ser Artista\n")
-            print("3. Ser Manager\n")
-            print("4. Reproductor")
-            op_settings = int(input("Ingrese opción a realizar\t"))
-            
-            if (op_settings == 1):
-                print("Consulta")
-                
-            elif (op_settings == 2):
-                print("Consulta")
-                
-            elif (op_settings == 3):
-                print("Consulta")
-                
-            elif (op_settings == 4):
-                print("Consulta")
-                
-            elif (op_settings == 5):
-                Funcion_Reproductor() 
+    
 def Funcion_Reproductor(user):
     op_repro=0
     consulta=[1,2,3]
     cont = 0
-    while(op_repro != len(consulta)+2):
+    while(op_repro != len(consulta)+3):
         cur.execute("SELECT cancion FROM canciones")
         consulta = cur.fetchall()
         print("---------------REPRODUCTOR---------------")
@@ -91,7 +44,8 @@ def Funcion_Reproductor(user):
             cont = cont + 1 
             print(cont, cancion)
         print(cont + 1, "Configuración")
-        print(cont + 2, "Log Out")
+        print(cont + 2, "Playlist")
+        print(cont + 3, "Log Out")
         print("------------PLAYING RIGHT NOW------------")
         cur.execute("SELECT cancion FROM canciones where id='%s';" % (op_repro))
         print("------------" + str(cur.fetchall()) + "---------")
@@ -102,5 +56,8 @@ def Funcion_Reproductor(user):
             Funcion_Settings(user)
             
         if(op_repro == len(consulta)+2):
-            print("puto")
-    
+            print("Playlist")
+        if(op_repro == len(consulta)+3):
+            print("Salir")
+
+
