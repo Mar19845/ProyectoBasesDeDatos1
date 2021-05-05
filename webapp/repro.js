@@ -33,17 +33,19 @@ async function Canciones() {
       const li = document.createElement("li")
       li.textContent = t.cancion;
       li.id = t.id;
-
+      
       song.appendChild(li);
-      if (UserSub === "true") {
-        document.getElementById(t.id).addEventListener('click', e => {
-          a.href = t.link_;
-          a.target = "_blank";
-          a.innerHTML = t.cancion;
-          barraRepro.appendChild(a);
-          //barraRepro.innerHTML=t.link
 
-        })
+      document.getElementById(t.id).addEventListener('click', e => {
+        a.href = t.link_;
+        a.target = "_blank";
+        a.innerHTML = t.cancion;
+        barraRepro.appendChild(a);
+        //barraRepro.innerHTML=t.link
+
+      })
+      /*if (UserSub === "true") {
+        
       }
       console.log(UserSub)
 
@@ -61,7 +63,7 @@ async function Canciones() {
         }else{
           alert("NO ERES USUARIO PREMIUM, REGRESA MAS TARDE")
         }
-      }  
+      }  */
     })
 
   }
