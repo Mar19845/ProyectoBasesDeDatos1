@@ -233,18 +233,20 @@ def Admin_3(user):
     
 def Admin(user):
     op_settings = 0
-    while(op_settings != 10):
+    while(op_settings != 12):
             print("--------------CONFIGURACIÓN--------------")
             print("1. Suscribirse\n")
             print("2. Ser Artista\n")
             print("3. Ser Manager\n")
             print("4. Inactivar\n")
             print("5. Modificar\n")
-            print("6. Eliminar\n")
+            print("6. Eliminar suscripcion de usuario\n")
             print("7. Subir Canción\n")
             print("8. Crear Usuario Monitor\n")
             print("9. Reporte\n")
-            print("10. Reproductor")
+            print("10. Bitacora\n")
+            print("11. Comisiones")
+            print("12. Reproductor")
             op_settings = int(input("Ingrese opción a realizar\t"))
             
             if (op_settings == 1):
@@ -306,8 +308,8 @@ def Admin(user):
                     conexion.commit()
                 
             elif (op_settings == 6):
-                print("Consulta")
-                ##eliminar 
+                cur.execute("UPDATE usuario SET suscripcion='false' WHERE usuario = '%s';" % (user))
+                conexion.commit()
                 
             elif (op_settings == 7):
                 check = ChekArtista(user)
@@ -319,17 +321,61 @@ def Admin(user):
                     cur.execute("insert into canciones values ('%s', '%s', '%s', '%s');" % (nomCan, link,nomArt,activa))
                     conexion.commit()
                 elif(check == False):
-                    print("Uste no es un Artista registrado")
+                    print("Usted no es un Artista registrado")
                 
             elif (op_settings == 8):
-                print("Consulta")
-                ##crear usuario monitor
+                usu = input("Escoje usuario para convertir en monitor: \t")
+                moni = int(input("Qué tipo de monitor quiere que sea? \t"))
+                cur.execute("UPDATE usuario SET administrador = 'true', id_tipo_admin = '%s' WHERE usuario = '%s'" % (moni, usu))
+                conexion.commit()
                 
             elif (op_settings == 9):
-                print("Consulta")
-                ##generar reportes
+                print("----------REPORTERÍA----------")
+                print("1. Albumes más recientes de la última semana")
+                print("2. Artistas con popularidad creciente en los ultimos tres meses")
+                print("3. Artistas con mayor produccion musical")
+                print("4. Usuarios más activos en la plataforma")
+                op_report = int(input("Qué reporte quisiera ver? \t"))
                 
+                if op_report == 1:
+                    cur.execute("SELECT a.nombre FROM albumes a WHERE a.fecha_salida > (SELECT CAST(NOW() AS DATE) - 7);")
+                    consulta = cur.fetchall()
+                    print("------ALBUMES MÁS RECIENTES DE LA ULTIMA SEMANA------")
+                    for a.nombre in consulta:
+                        print(a.nombre)
+                        
+                if op_report == 2:
+                    cur.execute("SELECT al.creador, count(r) FROM album_cancion ac INNER JOIN canciones c on ac.id_cancion = c.id INNER JOIN albumes al on ac.id_album = al.nombre INNER JOIN reproducciones r on r.id_cancion = c.id WHERE r.fecha > (SELECT CAST(NOW() AS DATE) - 90) GROUP BY al.creador ORDER BY count(r) desc;")
+                    consulta = cur.fetchall()
+                    
+                    print("------ARTISTAS CON POPULARIDAD CRECIENTE EN LOS ULTIMOS TRES MESES------")
+                    for al.creador in consulta:
+                        print(al.creador, count(r))
+                        
+                if op_report == 3:
+                    cur.execute("SELECT ar.nombre, count(r) FROM artistas ar INNER JOIN albumes al on ar.nombre = al.creador INNER JOIN canciones c on c.cancion = c.cancion INNER JOIN reproducciones r on r.id_cancion = c.id GROUP BY ar.nombre ORDER BY count(r) desc;")
+                    consulta = cur.fetchall()
+                    
+                    print("------ARTISTAS CON MAYOR PRODUCCION MUSICAL------")
+                    for ar.nombre in consulta:
+                        print(ar.nombre, count(r))
+                        
+                if op_report == 4:
+                    cur.execute("SELECT usuario, logins FROM usuario ORDER BY logins DESC LIMIT 5;")
+                    consulta = cur.fetchall()
+                    
+                    print("------USUARIOS MÁS ACTIVOS EN LA PLATAFORMA------")
+                    for usuario in consulta:
+                        print(usuario, logins)
+                #FALTA REPORTES PROYECTO 2
             elif (op_settings == 10):
+                #Bitacora
+                print("bitacora")
+        
+            elif (op_settings == 11):
+                print("comisiones")
+                
+            elif (op_settings == 12):
                 pass  
     
 def User_Normal(user):
