@@ -221,8 +221,10 @@ def Admin_3(user):
                     print("Uste no es un Artista registrado")
                 
             elif (op_settings == 5):
-                pass
-                ##crear ususario monitor
+                usu = input("Escoje usuario para convertir en monitor: \t")
+                moni = int(input("Qué tipo de monitor quiere que sea? \t"))
+                cur.execute("UPDATE usuario SET administrador = 'true', id_tipo_admin = '%s' WHERE usuario = '%s'" % (moni, usu))
+                conexion.commit()
                 
             elif (op_settings == 6):
                 pass
