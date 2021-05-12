@@ -29,6 +29,13 @@ def login(user,contra):
             return False
         else:
             print("Bienvenido: %s\n" %(user))
+            cur.execute("select logins from usuario where usuario = '%s'" % (user))
+            logins = cur.fetchall()
+            for i in logins:
+                newLog=int(i[0])+1
+                cur.execute("UPDATE usuario SET logins='%s' WHERE usuario = '%s'" % (newLog,user))
+                conexion.commit()
+            
             return True
     #conexion.close()
 
