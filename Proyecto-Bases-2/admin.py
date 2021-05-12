@@ -226,12 +226,17 @@ def Admin_3(user):
                 cur.execute("UPDATE usuario SET administrador = 'true', id_tipo_admin = '%s' WHERE usuario = '%s'" % (moni, usu))
                 conexion.commit()
                 
-            elif (op_settings == 6):
+            elif (op_settings == 9):
                print("----------REPORTERÍA----------")
                print("1. Albumes más recientes de la última semana")
                print("2. Artistas con popularidad creciente en los ultimos tres meses")
                print("3. Artistas con mayor produccion musical")
                print("4. Usuarios más activos en la plataforma")
+               print("5. Cancion con mas reproducciones de un Artista")
+               print("6. Generos mas Reproducidas entre un rango de fechas")
+               print("7. Artistas mas Reproducidos en un rango de Fechas")
+               print("8. Cancion con mas reproducciones de un Artista")
+               
                op_report = int(input("Qué reporte quisiera ver? \t"))
                if op_report == 1:
                    cur.execute("SELECT a.nombre FROM albumes a WHERE a.fecha_salida > (SELECT CAST(NOW() AS DATE) - 7);")
@@ -396,7 +401,6 @@ def Admin(user):
                 print("5. Cancion con mas reproducciones de un Artista")
                 print("6. Generos mas Reproducidas entre un rango de fechas")
                 print("7. Artistas mas Reproducidos en un rango de Fechas")
-                print("8. Cancion con mas reproducciones de un Artista")
                 op_report = int(input("Qué reporte quisiera ver? \t"))
                 
                 if op_report == 1:
