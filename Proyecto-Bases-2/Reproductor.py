@@ -36,7 +36,7 @@ def Funcion_Reproductor(user):
     op_repro=0
     consulta=[1,2,3]
     cont = 0
-    while(op_repro != len(consulta)+3):
+    while(op_repro != len(consulta)+2):
         cur.execute("SELECT cancion FROM canciones WHERE activa = 'true' ")
         consulta = cur.fetchall()
         print("---------------REPRODUCTOR---------------")
@@ -44,8 +44,7 @@ def Funcion_Reproductor(user):
             cont = cont + 1 
             print(cont, cancion)
         print(cont + 1, "Configuración")
-        print(cont + 2, "Playlist")
-        print(cont + 3, "Log Out")
+        print(cont + 2, "Log Out")
         print("------------PLAYING RIGHT NOW------------")
         cur.execute("SELECT cancion FROM canciones where id='%s';" % (op_repro))
         print("------------" + str(cur.fetchall()) + "---------")
@@ -56,8 +55,6 @@ def Funcion_Reproductor(user):
             Funcion_Settings(user)
             
         if(op_repro == len(consulta)+2):
-            print("Playlist")
-        if(op_repro == len(consulta)+3):
             print("Salir")
 
 
