@@ -227,8 +227,64 @@ def Admin_3(user):
                 conexion.commit()
                 
             elif (op_settings == 6):
-                pass
-                ## generar reportes
+               print("----------REPORTERÍA----------")
+               print("1. Albumes más recientes de la última semana")
+               print("2. Artistas con popularidad creciente en los ultimos tres meses")
+               print("3. Artistas con mayor produccion musical")
+               print("4. Usuarios más activos en la plataforma")
+               op_report = int(input("Qué reporte quisiera ver? \t"))
+               if op_report == 1:
+                   cur.execute("SELECT a.nombre FROM albumes a WHERE a.fecha_salida > (SELECT CAST(NOW() AS DATE) - 7);")
+                   consulta = cur.fetchall()
+                   print("------ALBUMES MÁS RECIENTES DE LA ULTIMA SEMANA------")
+                   for a.nombre in consulta:
+                       print(a.nombre)
+                        
+               if op_report == 2:
+                   cur.execute("SELECT al.creador, count(r) FROM album_cancion ac INNER JOIN canciones c on ac.id_cancion = c.id INNER JOIN albumes al on ac.id_album = al.nombre INNER JOIN reproducciones r on r.id_cancion = c.id WHERE r.fecha > (SELECT CAST(NOW() AS DATE) - 90) GROUP BY al.creador ORDER BY count(r) desc;")
+                   consulta = cur.fetchall()
+                   print("------ARTISTAS CON POPULARIDAD CRECIENTE EN LOS ULTIMOS TRES MESES------")
+                   for al.creador in consulta:
+                       print(al.creador, count(r))
+                        
+               if op_report == 3:
+                   cur.execute("SELECT ar.nombre, count(r) FROM artistas ar INNER JOIN albumes al on ar.nombre = al.creador INNER JOIN canciones c on c.cancion = c.cancion INNER JOIN reproducciones r on r.id_cancion = c.id GROUP BY ar.nombre ORDER BY count(r) desc;")
+                   consulta = cur.fetchall()
+                   print("------ARTISTAS CON MAYOR PRODUCCION MUSICAL------")
+                   for ar.nombre in consulta:
+                       print(ar.nombre, count(r))
+                        
+               if op_report == 4:
+                   cur.execute("SELECT usuario, logins FROM usuario ORDER BY logins DESC LIMIT 5;")
+                   consulta = cur.fetchall()
+                   print("------USUARIOS MÁS ACTIVOS EN LA PLATAFORMA------")
+                   for usuario,logins in consulta:
+                       print(usuario, logins)
+               if op_report == 5:
+                    artista = input("Ingrese el Artista")
+                    cur.execute("select canciones_repro_unArtista('%s');"% (artista))
+                    consulta = cur.fetchall()
+                    
+                    print("------Cancion con mas reproducciones------")
+                    print("------"+ artista +"------")
+                    for i in consulta:
+                        print(i[0])
+               if op_report == 6:
+                   fecha1 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                   fecha2 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                   cur.execute("select repro_genero('%s', '%s');"% (fecha1,fecha2))
+                   consulta = cur.fetchall()
+                   print("------Generos repoducidos------")
+                   for i in consulta:
+                       print(i)
+               if op_report == 7:
+                   fecha1 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                   fecha2 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                   cur.execute("select artistas_repro('%s', '%s', 5);"% (fecha1,fecha2))
+                   consulta = cur.fetchall()
+                   print("------Generos repoducidos------")
+                   for i in consulta:
+                       print(i) 
             elif (op_settings == 7):
                 pass
             
@@ -247,7 +303,7 @@ def Admin(user):
             print("8. Crear Usuario Monitor\n")
             print("9. Reporte\n")
             print("10. Bitacora\n")
-            print("11. Comisiones")
+            print("11. Comisiones\n")
             print("12. Reproductor")
             op_settings = int(input("Ingrese opción a realizar\t"))
             
@@ -337,6 +393,10 @@ def Admin(user):
                 print("2. Artistas con popularidad creciente en los ultimos tres meses")
                 print("3. Artistas con mayor produccion musical")
                 print("4. Usuarios más activos en la plataforma")
+                print("5. Cancion con mas reproducciones de un Artista")
+                print("6. Generos mas Reproducidas entre un rango de fechas")
+                print("7. Artistas mas Reproducidos en un rango de Fechas")
+                print("8. Cancion con mas reproducciones de un Artista")
                 op_report = int(input("Qué reporte quisiera ver? \t"))
                 
                 if op_report == 1:
@@ -367,15 +427,47 @@ def Admin(user):
                     consulta = cur.fetchall()
                     
                     print("------USUARIOS MÁS ACTIVOS EN LA PLATAFORMA------")
-                    for usuario in consulta:
+                    for usuario,logins in consulta:
                         print(usuario, logins)
-                #FALTA REPORTES PROYECTO 2
+                if op_report == 5:
+                    artista = input("Ingrese el Artista")
+                    cur.execute("select canciones_repro_unArtista('%s');"% (artista))
+                    consulta = cur.fetchall()
+                    
+                    print("------Cancion con mas reproducciones------")
+                    print("------"+ artista +"------")
+                    for i in consulta:
+                        print(i[0])
+                if op_report == 6:
+                    fecha1 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                    fecha2 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                    cur.execute("select repro_genero('%s', '%s');"% (fecha1,fecha2))
+                    consulta = cur.fetchall()
+                    print("------Generos repoducidos------")
+                    for i in consulta:
+                        print(i)
+                if op_report == 7:
+                    fecha1 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                    fecha2 = input("Ingrese la fecha de la forma Año-Mes-Dia")
+                    cur.execute("select artistas_repro('%s', '%s', 5);"% (fecha1,fecha2))
+                    consulta = cur.fetchall()
+                    print("------Generos repoducidos------")
+                    for i in consulta:
+                        print(i)
             elif (op_settings == 10):
-                #Bitacora
-                print("bitacora")
+                cur.execute("select * from bitacora;")
+                consulta = cur.fetchall()
+                print("------Bitacora Operaciones------")
+                for i in consulta:
+                    print(i[0]+" "+i[1]+" "+i[2]+" "+str(i[3]))
         
             elif (op_settings == 11):
-                print("comisiones")
+                cur.execute("select c.artista, (count(r))*(1/1000.0) as comision_en_dolares from canciones c inner join reproducciones r on r.id_cancion = c.id inner join artistas a on c.artista = a.nombre group by c.artista;")
+                consulta = cur.fetchall()
+                print("------Comisiones Por Artista------")
+                for i in consulta:
+                    print(i[0]+" $"+str(i[1]))
+                    
                 
             elif (op_settings == 12):
                 pass  
