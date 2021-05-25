@@ -1,5 +1,6 @@
 import psycopg2 as pg
 from urllib.parse import urlparse
+import random
 #import Reproductor as rp
 
 result = urlparse("postgres://mboqptna:ywBdzyA5jXnJ1Wxyq1MpxqB1h2kU8_ii@queenie.db.elephantsql.com:5432/mboqptna")
@@ -296,7 +297,7 @@ def Admin_3(user):
     
 def Admin(user):
     op_settings = 0
-    while(op_settings != 12):
+    while(op_settings != 13):
             print("--------------CONFIGURACIÓN--------------")
             print("1. Suscribirse\n")
             print("2. Ser Artista\n")
@@ -309,7 +310,8 @@ def Admin(user):
             print("9. Reporte\n")
             print("10. Bitacora\n")
             print("11. Comisiones\n")
-            print("12. Reproductor")
+            print("12. Simulación\n")
+            print("13. Reproductor")
             op_settings = int(input("Ingrese opción a realizar\t"))
             
             if (op_settings == 1):
@@ -472,8 +474,34 @@ def Admin(user):
                 for i in consulta:
                     print(i[0]+" $"+str(i[1]))
                     
-                
             elif (op_settings == 12):
+                artistas = ["SadJ", "Drake", "Alan Walker", "J Balvin", "AC/DC", "Daddy Yankee"]
+                albumes = ["Colores", "Back In Black", "Dura", "Alone", "Toosie Slide"]
+                canciones = []
+                
+                fecha = input("Ingrese fecha a simular (YYYY-MMM-DDD)\t")
+                tracks = int(input("Ingrese cantidad de tracks a generar\t"))
+                repos = int(input("Ingrese cantidad de reproducciones a simular\t"))
+                
+                cur.execute('DELETE FROM "public"."canciones"')
+                conexion.commit()
+                
+                for i in range(tracks):
+                    cur.execute("INSERT INTO canciones VALUES ('%s', '-----', 'http-', '%s', 'true')" % (i, random.choice(artistas)))
+                    conexion.commit()
+                    
+                    cur.execute("INSERT INTO album_cancion VALUES ('%s', '%s', '%s')" % (i, i, random.choice(albumes)))
+                    conexion.commit()
+                    
+                    canciones.append(i)
+                
+                for i in range(repos):
+                    cur.execute("INSERT INTO reproducciones VALUES ('%s', '%s', '%s')" % (i, random.choice(canciones), fecha))
+                    conexion.commit()
+                    
+                print("Simulación Completada")
+                
+            elif (op_settings == 13):
                 pass  
     
 def User_Normal(user):
