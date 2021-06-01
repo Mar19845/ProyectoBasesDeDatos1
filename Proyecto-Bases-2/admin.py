@@ -493,7 +493,7 @@ def Admin(user):
                     cur.execute("INSERT INTO  canciones(cancion, link, artista, activa) VALUES ('-----', 'http-', '%s', 'true')" % (random.choice(artistas)))
                     conexion.commit()
                     
-                    cur.execute("INSERT INTO album_cancion (id_cancion, id_album, usuario) VALUES ('%s', '%s', '%s)" % (i, random.choice(albumes), random.choice(usuarios)))
+                    cur.execute("INSERT INTO album_cancion (id_cancion, id_album) VALUES ('%s', '%s')" % (i, random.choice(albumes)))
                     conexion.commit()
                     
                     #canciones.append(i)
@@ -505,7 +505,7 @@ def Admin(user):
                     canciones.append(int(t))
                     
                 for i in range(1,repos+1):
-                    cur.execute("INSERT INTO reproducciones (id_cancion, fecha, ) VALUES ('%s', '%s')" % (random.choice(canciones), fecha))
+                    cur.execute("INSERT INTO reproducciones (id_cancion, fecha, usuario ) VALUES ('%s', '%s', '%s')" % (random.choice(canciones), fecha,random.choice(usuarios)))
                     conexion.commit()
                     
                 print("Simulación Completada")
