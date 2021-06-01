@@ -483,20 +483,26 @@ def Admin(user):
                 tracks = int(input("Ingrese cantidad de tracks a generar\t"))
                 repos = int(input("Ingrese cantidad de reproducciones a simular\t"))
                 
-                cur.execute('DELETE FROM "public"."canciones"')
+                #cur.execute('DELETE FROM "public"."canciones"')
                 conexion.commit()
                 
-                for i in range(tracks):
-                    cur.execute("INSERT INTO canciones VALUES ('%s', '-----', 'http-', '%s', 'true')" % (i, random.choice(artistas)))
+                for i in range(1,tracks+1):
+                    cur.execute("INSERT INTO  canciones(cancion, link, artista, activa) VALUES ('-----', 'http-', '%s', 'true')" % (random.choice(artistas)))
                     conexion.commit()
                     
-                    cur.execute("INSERT INTO album_cancion VALUES ('%s', '%s', '%s')" % (i, i, random.choice(albumes)))
+                    cur.execute("INSERT INTO album_cancion (id_cancion, id_album) VALUES ('%s', '%s')" % (i, random.choice(albumes)))
                     conexion.commit()
                     
-                    canciones.append(i)
-                
-                for i in range(repos):
-                    cur.execute("INSERT INTO reproducciones VALUES ('%s', '%s', '%s')" % (i, random.choice(canciones), fecha))
+                    #canciones.append(i)
+                cur.execute("select id from canciones")
+                ids = cur.fetchall()
+                conexion.commit()
+                for i in ids:
+                    t = ' '.join([str(x) for x in i])
+                    canciones.append(int(t))
+                    
+                for i in range(1,repos+1):
+                    cur.execute("INSERT INTO reproducciones (id_cancion, fecha) VALUES ('%s', '%s')" % (random.choice(canciones), fecha))
                     conexion.commit()
                     
                 print("Simulación Completada")

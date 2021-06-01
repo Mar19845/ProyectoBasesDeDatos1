@@ -8,8 +8,11 @@ password = result.password
 database = result.path[1:]
 hostname = result.hostname
 port = result.port
-
-
+#print(hostname)
+#print(username)
+#print(password)
+#print(database)
+#print(port)
 #creamos una conexion a la base de datos
 conexion = pg.connect(host=hostname, database=database, user=username, password=password)
 # Creamos el cursor con el objeto conexion
@@ -50,3 +53,11 @@ def create(user,contra):
     #conexion.close()
 
 
+#cur.execute("select id from canciones")
+#user = cur.fetchall()
+#ids= []
+#for i in user:
+#    t = ' '.join([str(x) for x in i])
+#    ids.append(int(t))
+#    
+#print(type(ids[0]))
