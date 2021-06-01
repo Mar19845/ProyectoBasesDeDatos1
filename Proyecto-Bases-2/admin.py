@@ -1,5 +1,6 @@
 import psycopg2 as pg
 from urllib.parse import urlparse
+from pymongo import MongoClient
 import random
 #import Reproductor as rp
 
@@ -297,7 +298,7 @@ def Admin_3(user):
     
 def Admin(user):
     op_settings = 0
-    while(op_settings != 13):
+    while(op_settings != 14):
             print("--------------CONFIGURACIÓN--------------")
             print("1. Suscribirse\n")
             print("2. Ser Artista\n")
@@ -311,7 +312,8 @@ def Admin(user):
             print("10. Bitacora\n")
             print("11. Comisiones\n")
             print("12. Simulación\n")
-            print("13. Reproductor")
+            print("13. Perfilamiento")
+            print("14. Reproductor")
             op_settings = int(input("Ingrese opción a realizar\t"))
             
             if (op_settings == 1):
@@ -477,6 +479,7 @@ def Admin(user):
             elif (op_settings == 12):
                 artistas = ["SadJ", "Drake", "Alan Walker", "J Balvin", "AC/DC", "Daddy Yankee"]
                 albumes = ["Colores", "Back In Black", "Dura", "Alone", "Toosie Slide"]
+                usuarios = ["user2", "user3", "user4", "user5", "user1"]
                 canciones = []
                 
                 fecha = input("Ingrese fecha a simular (YYYY-MMM-DDD)\t")
@@ -490,7 +493,7 @@ def Admin(user):
                     cur.execute("INSERT INTO  canciones(cancion, link, artista, activa) VALUES ('-----', 'http-', '%s', 'true')" % (random.choice(artistas)))
                     conexion.commit()
                     
-                    cur.execute("INSERT INTO album_cancion (id_cancion, id_album) VALUES ('%s', '%s')" % (i, random.choice(albumes)))
+                    cur.execute("INSERT INTO album_cancion (id_cancion, id_album, usuario) VALUES ('%s', '%s', '%s)" % (i, random.choice(albumes), random.choice(usuarios)))
                     conexion.commit()
                     
                     #canciones.append(i)
@@ -502,12 +505,18 @@ def Admin(user):
                     canciones.append(int(t))
                     
                 for i in range(1,repos+1):
-                    cur.execute("INSERT INTO reproducciones (id_cancion, fecha) VALUES ('%s', '%s')" % (random.choice(canciones), fecha))
+                    cur.execute("INSERT INTO reproducciones (id_cancion, fecha, ) VALUES ('%s', '%s')" % (random.choice(canciones), fecha))
                     conexion.commit()
                     
                 print("Simulación Completada")
-                
+            
             elif (op_settings == 13):
+                client = MongoClient('localhost')
+                print(client.list_database_names())
+                
+                
+            
+            elif (op_settings == 14):
                 pass  
     
 def User_Normal(user):
