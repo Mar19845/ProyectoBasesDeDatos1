@@ -499,7 +499,7 @@ def Admin(user):
                     #canciones.append(i)
                 cur.execute("select id from canciones")
                 ids = cur.fetchall()
-                conexion.commit()
+                
                 for i in ids:
                     t = ' '.join([str(x) for x in i])
                     canciones.append(int(t))
@@ -535,6 +535,11 @@ def Admin(user):
                 
                 for documento in col.find({}):
                     print(documento)
+                
+                for i in users:
+                    print(col.count({
+                        'Usuario':i,
+                        'Id_Cancion Reproducida':2}))
                 
 #2021-01-01             
             
