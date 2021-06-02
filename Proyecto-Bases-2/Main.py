@@ -47,8 +47,8 @@ while kill != True:
         if LogCheck == False:
             print("f)")
     if opcion == "2":
-        print("Creando Ususario")
-        user1 = input("Ingresa tu nombre de Ususario:  ")
+        print("Creando Usuario")
+        user1 = input("Ingresa tu nombre de Usuario:  ")
         contra1 = input("Ingresa tu contraseña:  ")
         log.create(user1,contra1)
     if opcion == "3":

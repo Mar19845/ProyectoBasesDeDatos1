@@ -298,7 +298,7 @@ def Admin_3(user):
     
 def Admin(user):
     op_settings = 0
-    while(op_settings != 14):
+    while(op_settings != 15):
             print("--------------CONFIGURACIÓN--------------")
             print("1. Suscribirse\n")
             print("2. Ser Artista\n")
@@ -313,7 +313,8 @@ def Admin(user):
             print("11. Comisiones\n")
             print("12. Simulación\n")
             print("13. Perfilamiento\n")
-            print("14. Reproductor")
+            print("14. Recomendaciones\n")
+            print("15. Reproductor")
             op_settings = int(input("Ingrese opción a realizar\t"))
             
             if (op_settings == 1):
@@ -535,15 +536,33 @@ def Admin(user):
                 
                 for documento in col.find({}):
                     print(documento)
-                
-                for i in users:
-                    print(col.count({
-                        'Usuario':i,
-                        'Id_Cancion Reproducida':2}))
-                
-#2021-01-01             
             
             elif (op_settings == 14):
+                client = MongoClient('localhost')
+                db = client['Recomendacion']
+                db.drop_collection('usuarios2')
+                col = db['usuarios2']
+                
+                users = ["user2", "user3", "user4", "user5", "user1"]
+                
+                cur.execute("select c.id from canciones c inner join (select u.usuario, r.id_cancion, r.fecha from usuario u inner join reproducciones r on u.usuario = r.usuario group by u.usuario, r.id_cancion, r.fecha) as x on c.id = x.id_cancion group by c.id order by count(c.id) asc limit 3;")
+                canciones = cur.fetchall()
+                
+                for i in users:
+                    col.insert_one({
+                        'Usuario':i,
+                        'Recomendación':[]
+                    })
+                   
+                for i in users:              
+                    col.find_one_and_update({'Usuario':i},
+                                      {'$push' : {'Recomendación':random.choice(canciones)}})
+                
+                for documento in col.find({}):
+                    print(documento)
+            
+           
+            elif (op_settings == 15):
                 pass  
     
 def User_Normal(user):
