@@ -1,6 +1,6 @@
 import psycopg2 as pg
 from urllib.parse import urlparse
-from pymongo import MongoClient
+from pymongo import *
 import random
 #import Reproductor as rp
 
@@ -312,7 +312,7 @@ def Admin(user):
             print("10. Bitacora\n")
             print("11. Comisiones\n")
             print("12. Simulación\n")
-            print("13. Perfilamiento")
+            print("13. Perfilamiento\n")
             print("14. Reproductor")
             op_settings = int(input("Ingrese opción a realizar\t"))
             
@@ -512,9 +512,31 @@ def Admin(user):
             
             elif (op_settings == 13):
                 client = MongoClient('localhost')
-                print(client.list_database_names())
+                db = client['Perfilamiento']
+                db.drop_collection('usuarios')
+                col = db['usuarios']
                 
+                users = ["user2", "user3", "user4", "user5", "user1"]
+    
+                fecha = input("Ingrese fecha a perfilar (YYYY-MMM-DDD)\t")
                 
+                cur.execute("select c.id, x.usuario, x.fecha from canciones c inner join (select u.usuario, r.id_cancion, r.fecha from usuario u inner join reproducciones r on u.usuario = r.usuario where r.fecha = '%s' group by u.usuario, r.id_cancion, r.fecha) as x on c.id = x.id_cancion;" % (fecha))
+                usuarios = cur.fetchall()
+                
+                for i in users:
+                    col.insert_one({
+                        'Usuario':i,
+                        'Id_Cancion Reproducida':[]
+                    })
+                   
+                for i in usuarios:              
+                    col.find_one_and_update({'Usuario':i[1]},
+                                      {'$push' : {'Id_Cancion Reproducida':i[0]}})
+                
+                for documento in col.find({}):
+                    print(documento)
+                
+#2021-01-01             
             
             elif (op_settings == 14):
                 pass  

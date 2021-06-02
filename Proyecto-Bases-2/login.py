@@ -52,7 +52,13 @@ def create(user,contra):
         print("Hubo un error intente de nuevo")
     #conexion.close()
 
-
+#fecha = input("Ingrese fecha a perfilar (YYYY-MMM-DDD)\t")
+#                
+#cur.execute("select c.id, x.usuario, x.fecha from canciones c inner join (select u.usuario, r.id_cancion, r.fecha from usuario u inner join reproducciones r on u.usuario = r.usuario where r.fecha = '%s' group by u.usuario, r.id_cancion, r.fecha) as x on c.id = x.id_cancion;" % (fecha))
+#usuarios = cur.fetchall()
+#
+#for i in usuarios:
+#    print(i)
 #cur.execute("select id from canciones")
 #user = cur.fetchall()
 #ids= []
