@@ -504,8 +504,39 @@ delete from canciones where id = 6;
 select * from canciones;
 select * from bitacora;
 
-create index bitacora_funcion on bitacora(funcion);
-create index bitacora_tabla on bitacora(tabla);
-create index bitacora_fecha on bitacora(fecha);
-create index repro_idcancion on reproducciones(id_cancion);
-create index repro_fecha on reproducciones(fecha);
+
+
+select * from AlbumXdia;
+
+CREATE VIEW AlbumXdia AS
+--album reproduccion x dia
+select albumes.nombre,reproducciones.fecha, count(albumes.nombre) as reproXdia
+from ((albumes
+inner join album_cancion on album_cancion.Id_album = albumes.nombre)
+inner join reproducciones on reproducciones.Id_cancion = album_cancion.Id_cancion)
+group by albumes.nombre, reproducciones.fecha;
+
+CREATE VIEW GeneroXdia AS
+--genero reproduccion x dia
+select albumes.genero,reproducciones.fecha, count(albumes.genero) as reproXdia
+from ((albumes
+inner join album_cancion on album_cancion.Id_album = albumes.nombre)
+inner join reproducciones on reproducciones.Id_cancion = album_cancion.Id_cancion)
+group by albumes.genero, reproducciones.fecha;
+
+CREATE VIEW UsuarioXdia AS
+--usuario reproduccion x dia
+select reproducciones.usuario, reproducciones.fecha,
+count(reproducciones.usuario) as repro_dia
+from reproducciones
+group by reproducciones.usuario, reproducciones.fecha
+order by reproducciones.fecha;
+
+CREATE VIEW ArtistaXdia AS
+--artista artista x dia
+select canciones.artista,reproducciones.fecha as fecha_reproduccion,
+count(reproducciones.Id_cancion) as reproducciones
+from canciones
+inner join reproducciones on reproducciones.Id_cancion = canciones.Id
+group by canciones.artista,reproducciones.fecha
+order by reproducciones.fecha,count(reproducciones.Id_cancion);
