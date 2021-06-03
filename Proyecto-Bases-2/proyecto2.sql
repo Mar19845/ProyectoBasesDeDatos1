@@ -540,3 +540,12 @@ from canciones
 inner join reproducciones on reproducciones.Id_cancion = canciones.Id
 group by canciones.artista,reproducciones.fecha
 order by reproducciones.fecha,count(reproducciones.Id_cancion);
+
+
+CREATE VIEW Album_Artista_Reproduccion_x_dia AS
+select albumes.nombre as Album_Nombre, albumes.creador as Artista_del_Album,
+reproducciones.fecha, count(album_cancion.Id_album) as reproAlbumxArtista
+from ((albumes
+inner join album_cancion on album_cancion.Id_album = albumes.nombre)
+inner join reproducciones on reproducciones.Id_cancion = album_cancion.Id_cancion)
+group by albumes.nombre,reproducciones.fecha;
